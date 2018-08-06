@@ -10,6 +10,20 @@ var campgrounds = [
         {name: 'Pinary', image: 'http://www.env.gov.bc.ca/bcparks/explore/parkpgs/whiskers/whiskers.jpg'},
         {name: 'Turkey Point', image: 'https://recreation-acm.activefederal.com/assetfactory.aspx?did=7656'},
         {name: 'Long Point', image: 'http://vacationingwithkids.com/wp-content/uploads/2014/08/10520895_10154422250285646_5717167271521392684_n-300x224.jpg'},
+        {name: 'Pinary', image: 'http://www.env.gov.bc.ca/bcparks/explore/parkpgs/whiskers/whiskers.jpg'},
+        {name: 'Turkey Point', image: 'https://recreation-acm.activefederal.com/assetfactory.aspx?did=7656'},
+        {name: 'Long Point', image: 'http://vacationingwithkids.com/wp-content/uploads/2014/08/10520895_10154422250285646_5717167271521392684_n-300x224.jpg'},
+        {name: 'Pinary', image: 'http://www.env.gov.bc.ca/bcparks/explore/parkpgs/whiskers/whiskers.jpg'},
+        {name: 'Turkey Point', image: 'https://recreation-acm.activefederal.com/assetfactory.aspx?did=7656'},
+        {name: 'Long Point', image: 'http://vacationingwithkids.com/wp-content/uploads/2014/08/10520895_10154422250285646_5717167271521392684_n-300x224.jpg'},
+        {name: 'Pinary', image: 'http://www.env.gov.bc.ca/bcparks/explore/parkpgs/whiskers/whiskers.jpg'},
+        {name: 'Turkey Point', image: 'https://recreation-acm.activefederal.com/assetfactory.aspx?did=7656'},
+        {name: 'Long Point', image: 'http://vacationingwithkids.com/wp-content/uploads/2014/08/10520895_10154422250285646_5717167271521392684_n-300x224.jpg'},
+        {name: 'Pinary', image: 'http://www.env.gov.bc.ca/bcparks/explore/parkpgs/whiskers/whiskers.jpg'},
+        {name: 'Turkey Point', image: 'https://recreation-acm.activefederal.com/assetfactory.aspx?did=7656'},
+        {name: 'Long Point', image: 'http://vacationingwithkids.com/wp-content/uploads/2014/08/10520895_10154422250285646_5717167271521392684_n-300x224.jpg'},
+        
+        
 ];
 
 app.get('/', function(req, res){
