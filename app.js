@@ -11,25 +11,27 @@ app.set('view engine', 'ejs');
 //SCHEMA SETUP
 var campgroundSchema = new mongoose.Schema({
     name: String,
-    image: String
+    image: String,
+    description: String
 });
 
 var Campground = mongoose.model('Campground', campgroundSchema);
 
-// Campground.create(
-//     {
-//         name: 'Turkey Point',
-//         image: 'https://recreation-acm.activefederal.com/assetfactory.aspx?did=7656'
-        
-//     },
-//     function(err, campground){
-//         if(err){
-//             console.log(err);
-//         } else {
-//             console.log('NEWLY CREATED CAMPGROUND: ');
-//             console.log(campground);
-//         }
-//         });
+Campground.create(
+    {
+        name: 'Turkey Point',
+        image: 'https://recreation-acm.activefederal.com/assetfactory.aspx?did=7656',
+        description: 'There is beautiful beach, no bathroom. No water.'
+   
+    },
+    function(err, campground){
+        if(err){
+            console.log(err);
+        } else {
+            console.log('NEWLY CREATED CAMPGROUND: ');
+            console.log(campground);
+        }
+        });
 
 var campgrounds = [
         {name: 'Pinary', image: 'http://www.env.gov.bc.ca/bcparks/explore/parkpgs/whiskers/whiskers.jpg'},
@@ -53,6 +55,7 @@ app.get('/', function(req, res){
     res.render('landing');
 });
 
+// INDEX - show all campgrounds
 app.get('/campgrounds', function(req, res){
     //Get all campgrounds from DB
     Campground.find({}, function(err, allCampgrounds){
@@ -64,8 +67,8 @@ app.get('/campgrounds', function(req, res){
     });
 });
 
+// CREATE - add new campground to DB
 app.post('/campgrounds', function(req, res){
-    // get data from form and add to campground array
     // redirect back to campground page
     var name = req.body.name;
     var image = req.body.image;
@@ -80,10 +83,17 @@ app.post('/campgrounds', function(req, res){
     });
 });
 
+//NEW - show form to create new campground
 app.get('/campgrounds/new', function(req, res){
     res.render('new');
 });
 
+app.get('/campgrounds/:id', function(req, res){
+    //find the campground with provided ID
+    
+    //render show template with that campground
+    res.send('This will be the show page one day');
+});
 
 app.listen(process.env.PORT, process.env.IP, function(){
     console.log('YelpCamp Server has started!!!');
