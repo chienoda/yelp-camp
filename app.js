@@ -4,7 +4,6 @@ var express    = require('express'),
     mongoose   = require('mongoose')
 
 mongoose.connect('mongodb://localhost:27017/yelp_camp', { useNewUrlParser: true });
-
 app.use(bodyParser.urlencoded({extended: true}));
 app.set('view engine', 'ejs');
 
@@ -17,39 +16,21 @@ var campgroundSchema = new mongoose.Schema({
 
 var Campground = mongoose.model('Campground', campgroundSchema);
 
-Campground.create(
-    {
-        name: 'Turkey Point',
-        image: 'https://recreation-acm.activefederal.com/assetfactory.aspx?did=7656',
-        description: 'There is beautiful beach, no bathroom. No water.'
+// Campground.create(
+//     {
+//         name: 'Turkey Point',
+//         image: 'https://recreation-acm.activefederal.com/assetfactory.aspx?did=7656',
+//         description: 'There is beautiful beach, no bathroom. No water.'
    
-    },
-    function(err, campground){
-        if(err){
-            console.log(err);
-        } else {
-            console.log('NEWLY CREATED CAMPGROUND: ');
-            console.log(campground);
-        }
-        });
-
-var campgrounds = [
-        {name: 'Pinary', image: 'http://www.env.gov.bc.ca/bcparks/explore/parkpgs/whiskers/whiskers.jpg'},
-        {name: 'Turkey Point', image: 'https://recreation-acm.activefederal.com/assetfactory.aspx?did=7656'},
-        {name: 'Long Point', image: 'http://vacationingwithkids.com/wp-content/uploads/2014/08/10520895_10154422250285646_5717167271521392684_n-300x224.jpg'},
-        {name: 'Pinary', image: 'http://www.env.gov.bc.ca/bcparks/explore/parkpgs/whiskers/whiskers.jpg'},
-        {name: 'Turkey Point', image: 'https://recreation-acm.activefederal.com/assetfactory.aspx?did=7656'},
-        {name: 'Long Point', image: 'http://vacationingwithkids.com/wp-content/uploads/2014/08/10520895_10154422250285646_5717167271521392684_n-300x224.jpg'},
-        {name: 'Pinary', image: 'http://www.env.gov.bc.ca/bcparks/explore/parkpgs/whiskers/whiskers.jpg'},
-        {name: 'Turkey Point', image: 'https://recreation-acm.activefederal.com/assetfactory.aspx?did=7656'},
-        {name: 'Long Point', image: 'http://vacationingwithkids.com/wp-content/uploads/2014/08/10520895_10154422250285646_5717167271521392684_n-300x224.jpg'},
-        {name: 'Pinary', image: 'http://www.env.gov.bc.ca/bcparks/explore/parkpgs/whiskers/whiskers.jpg'},
-        {name: 'Turkey Point', image: 'https://recreation-acm.activefederal.com/assetfactory.aspx?did=7656'},
-        {name: 'Long Point', image: 'http://vacationingwithkids.com/wp-content/uploads/2014/08/10520895_10154422250285646_5717167271521392684_n-300x224.jpg'},
-        {name: 'Pinary', image: 'http://www.env.gov.bc.ca/bcparks/explore/parkpgs/whiskers/whiskers.jpg'},
-        {name: 'Turkey Point', image: 'https://recreation-acm.activefederal.com/assetfactory.aspx?did=7656'},
-        {name: 'Long Point', image: 'http://vacationingwithkids.com/wp-content/uploads/2014/08/10520895_10154422250285646_5717167271521392684_n-300x224.jpg'},
-];
+//     },
+    // function(err, campground){
+    //     if(err){
+    //         console.log(err);
+    //     } else {
+    //         console.log('NEWLY CREATED CAMPGROUND: ');
+    //         console.log(campground);
+    //     }
+    // });
 
 app.get('/', function(req, res){
     res.render('landing');
@@ -62,17 +43,17 @@ app.get('/campgrounds', function(req, res){
         if(err){
             console.log(err);
         } else {
-            res.render('campgrounds', {campgrounds: allCampgrounds});
+            res.render('index', {campgrounds: allCampgrounds});
         }
     });
 });
 
 // CREATE - add new campground to DB
 app.post('/campgrounds', function(req, res){
-    // redirect back to campground page
     var name = req.body.name;
     var image = req.body.image;
-    var newCampground = {name: name, image: image}
+    var desc = req.body.description;
+    var newCampground = {name: name, image: image, description: desc}
     // create a new campground and save to DB
     Campground.create(newCampground, function(err, newlyCreated){
         if(err){
@@ -88,12 +69,32 @@ app.get('/campgrounds/new', function(req, res){
     res.render('new');
 });
 
-app.get('/campgrounds/:id', function(req, res){
+// // SHOW - shows more info about one campground
+// app.get('/campgrounds/:id', function(req, res){
+//     //find the campground with provided ID
+//     Campground.findById(req.params.id, function(err, foundCampground){
+//         if(err){
+//             console.log(err);
+//         } else {
+//             //render show template with that campground
+//             res.render('show', {campground: foundCampground});
+//         }
+//     });
+// });
+
+// SHOW - shows more info about one campground
+app.get("/campgrounds/:id", function(req, res){
     //find the campground with provided ID
-    
-    //render show template with that campground
-    res.send('This will be the show page one day');
-});
+    Campground.findById(req.params.id, function(err, foundCampground){
+        if(err){
+            console.log(err);
+        } else {
+            //render show template with that campground
+            res.render("show", {campground: foundCampground});
+        }
+    });
+})
+
 
 app.listen(process.env.PORT, process.env.IP, function(){
     console.log('YelpCamp Server has started!!!');
