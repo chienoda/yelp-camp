@@ -5,28 +5,10 @@ var express    = require('express'),
     Campground = require('./models/campground'),
     seedDB = require("./seeds")
     
-seedDB();
 mongoose.connect('mongodb://localhost:27017/yelp_camp', { useNewUrlParser: true });
 app.use(bodyParser.urlencoded({extended: true}));
 app.set('view engine', 'ejs');
-
-
-
-// Campground.create(
-//     {
-//         name: 'Turkey Point',
-//         image: 'https://recreation-acm.activefederal.com/assetfactory.aspx?did=7656',
-//         description: 'There is beautiful beach, no bathroom. No water.'
-   
-//     },
-    // function(err, campground){
-    //     if(err){
-    //         console.log(err);
-    //     } else {
-    //         console.log('NEWLY CREATED CAMPGROUND: ');
-    //         console.log(campground);
-    //     }
-    // });
+seedDB();
 
 app.get('/', function(req, res){
     res.render('landing');
@@ -81,10 +63,11 @@ app.get('/campgrounds/new', function(req, res){
 // SHOW - shows more info about one campground
 app.get("/campgrounds/:id", function(req, res){
     //find the campground with provided ID
-    Campground.findById(req.params.id, function(err, foundCampground){
+    Campground.findById(req.params.id).populate("comments").exec(function(err, foundCampground){
         if(err){
             console.log(err);
         } else {
+            console.log(foundCampground);
             //render show template with that campground
             res.render("show", {campground: foundCampground});
         }
