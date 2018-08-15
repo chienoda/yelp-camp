@@ -4,6 +4,7 @@ var express    = require("express"),
     mongoose   = require("mongoose"),
     Campground = require("./models/campground"),
     Comment    = require("./models/comment"),
+    User       = require("./models/user"),
     seedDB     = require("./seeds")
     
 mongoose.connect("mongodb://localhost:27017/yelp_camp", { useNewUrlParser: true });
