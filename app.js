@@ -147,6 +147,12 @@ app.post("/login", passport.authenticate("local",
     }), function(req, res){
 });
 
+// LOGOUT ROUTE
+app.get("/logout", function(req, res){
+    req.logout();
+    res.redirect("/campgrounds");
+});
+
 
 
 app.listen(process.env.PORT, process.env.IP, function(){
