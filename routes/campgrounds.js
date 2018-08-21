@@ -3,7 +3,6 @@ var router = express.Router();
 var Campground = require("../models/campground");
 var middleware = require("../middleware");
 
-
 // INDEX - show all campgrounds
 router.get("/", function(req, res){
     //Get all campgrounds from DB
@@ -46,8 +45,10 @@ router.get("/new", middleware.isLoggedIn, function(req, res){
 router.get("/:id", function(req, res){
     //find the campground with provided ID
     Campground.findById(req.params.id).populate("comments").exec(function(err, foundCampground){
-        if(err){
+        if(err || !foundCampground ){
             console.log(err);
+            req.flash("error", "Campground not found");
+            res.redirect("back");
         } else {
             console.log(foundCampground);
             //render show template with that campground
