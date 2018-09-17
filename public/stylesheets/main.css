@@ -79,3 +79,9 @@ body {
 .delete-form {
     display: inline-block;
 }
+
+/*show page icons color*/
+.my-gray {color: gray}
+.my-skyblue {color: skyblue}
+.my-orange {color: #fecb81}
+.my-black {color: black}
